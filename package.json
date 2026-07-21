@@ -1,0 +1,28 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/thomasmartin2b-blip/Mon-Vieux-Grimoire#readme",
+  "bugs": {
+    "url": "https://github.com/thomasmartin2b-blip/Mon-Vieux-Grimoire/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomasmartin2b-blip/Mon-Vieux-Grimoire.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
