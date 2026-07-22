@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const Book = require('./models/Book');
+const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
 
 mongoose.connect('mongodb+srv://thomasmartin2b_db_user:qVsZNpbxhX7tT0uo@cluster0.i8vbx2x.mongodb.net/?appName=Cluster0')
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -19,38 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/api/stuff', (req, res, next) => {
-  delete req.body._id;
-  const book = new Book({
-    ...req.body
-  });
-  thing.save()
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-    .catch(error => res.status(400).json({ error }));
-});
-
-app.put('/api/stuff/:id', (req, res, next) => {
-  Book.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Objet modifié !'}))
-    .catch(error => res.status(400).json({ error }));
-});
-
-app.delete('/api/stuff/:id', (req, res, next) => {
-  Book.deleteOne({ _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
-    .catch(error => res.status(400).json({ error }));
-});
-
-app.get('/api/stuff/:id', (req, res, next) => {
-  Book.findOne({ _id: req.params.id })
-    .then(book => res.status(200).json(thing))
-    .catch(error => res.status(404).json({ error }));
-});
-
-app.get('/api/stuff', (req, res, next) => {
-  Book.find()
-    .then(books => res.status(200).json(things))
-    .catch(error => res.status(400).json({ error }));
-});
+app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
