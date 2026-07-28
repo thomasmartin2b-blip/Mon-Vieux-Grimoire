@@ -1,16 +1,24 @@
+require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const rateLimit = require('express-rate-limit');
+const path = require('path');
 
 const bookRoutes = require('./routes/book');
 const userRoutes = require('./routes/user');
-const path = require('path');
 
-mongoose.connect('mongodb+srv://thomasmartin2b_db_user:qVsZNpbxhX7tT0uo@cluster0.i8vbx2x.mongodb.net/?appName=Cluster0')
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch((error) => console.log('Connexion à MongoDB échouée !', error));
 
 const app = express();
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100 
+});
+
+app.use(limiter);
 
 app.use(express.json());
 
